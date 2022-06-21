@@ -33,9 +33,9 @@ if (!isset($data)) {
         } else {
             $messages = array();
         }
-        $messages[] = ["login" => $data[login], "message" => $data["message"]];
+        $messages[] = ["login" => $data["login"], "message" => $data["message"]];
 
-        echo json_encode(["login" => $data[login], "message" => $data["message"]]);
+        echo json_encode(["login" => $data["login"], "message" => $data["message"]]);
 
         file_put_contents($file, json_encode($messages));
 
@@ -53,17 +53,3 @@ if (!isset($data)) {
 
     }
 }
-
-
-//    $lol = array(
-//            "login" => "root",
-//            "passwd" => "toor",
-//        );
-//
-//
-//
-//
-//    $res = in_array($lol, $users);
-
-
-//    echo "123";

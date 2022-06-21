@@ -6,7 +6,7 @@ function print_message(login, message) {
 
     let ps = document.createElement("div");
     ps.className = "mes";
-    ps.innerText = login+"@server-edu:/chat/# ";
+    ps.innerText = login + "@server-edu:/chat/# ";
 
     let oup = document.createElement("span");
     oup.innerText = message;
@@ -31,7 +31,7 @@ function print_prompt(pss, inp_id, inp_name, inp_type) {
     inp.id = inp_id;
     inp.name = inp_name;
     inp.type = inp_type;
-    inp.onkeydown=(() => (inp.style.width = ((inp.value.length + 1) * 8) + 'px'));
+    inp.onkeydown = (() => (inp.style.width = ((inp.value.length + 1) * 8) + 'px'));
     inp.setAttribute("maxlength", "120");
 
     line.append(ps);
@@ -53,7 +53,7 @@ function print_report(report) {
 
 }
 
-function clear_login_passwd(){
+function clear_login_passwd() {
     document.getElementById("passwd").removeAttribute("id")
     document.getElementById("login").removeAttribute("id")
 }
@@ -63,18 +63,18 @@ function print_login() {
 
     let login = print_prompt("Chat login: ", "login", "login", "text")
 
-    let el = () => {login.focus()};
+    let el = () => {
+        login.focus()
+    };
 
     login.addEventListener("blur", el)
 
     login.addEventListener("keyup", function (event) {
 
-        console.log(event.key)
         if (event.key === "Enter") {
             login.removeEventListener("blur", el)
             print_passwd();
             login.disabled = true;
-            console.log(1231)
         }
     });
 
@@ -84,16 +84,17 @@ function print_passwd() {
 
     let passwd = print_prompt("Chat password: ", "passwd", "passwd", "text")
 
-    let el = () => {passwd.focus()};
+    let el = () => {
+        passwd.focus()
+    };
 
     passwd.addEventListener("blur", el);
 
     passwd.addEventListener("keyup", function (event) {
         if (event.key === "Enter") {
             passwd.removeEventListener("blur", el);
-            login();
             passwd.disabled = true;
-            console.log(1231)
+            login();
         }
     })
 
@@ -111,12 +112,11 @@ async function say_message(message) {
     if (message === null) {
         print_report("You try to say empty message, look help")
     } else {
-        console.log(message)
         let text = message[2]
 
         let data = JSON.stringify({
             method: "say",
-            login: document.cookie.match( '(^|;) ?' + "login" + '=([^;]*)(;|$)' )[2],
+            login: document.cookie.match('(^|;) ?' + "login" + '=([^;]*)(;|$)')[2],
             message: text
         });
 
@@ -204,13 +204,15 @@ async function run_command(command) {
 
 function print_main() {
     let command = print_prompt(
-        document.cookie.match ( '(^|;) ?' + "login" + '=([^;]*)(;|$)' )[2]+"@server-edu:/chat/# ",
+        document.cookie.match('(^|;) ?' + "login" + '=([^;]*)(;|$)')[2] + "@server-edu:/chat/# ",
         "prompt",
         "prompt",
         "text"
     )
 
-    let el = () => {command.focus()};
+    let el = () => {
+        command.focus()
+    };
 
     command.addEventListener("blur", el);
 
@@ -250,7 +252,7 @@ async function login() {
 
         res = await response.json();
 
-        if (res["state"] === "ok"){
+        if (res["state"] === "ok") {
             print_report("Login successful")
             print_main()
         } else {
@@ -258,18 +260,12 @@ async function login() {
             clear_login_passwd();
             print_login();
         }
-    }
-    else {
+    } else {
         print_report("server access error");
     }
-
-    console.log(res)
-
 
 }
 
 window.onload = () => {
-    // document.getElementById("terminal").
-    // document.getElementById("terminal").removeEventListener("click")
     print_login()
 };
