@@ -10,7 +10,7 @@ $users = array(
 $ok_auth = json_encode(["state" => "ok"]);
 $er_auth = json_encode(["state" => "er"]);
 
-$file = "messages.json";
+$file = dirname(__DIR__) . "/messages.json";
 
 $data = json_decode(file_get_contents("php://input"), true);
 
